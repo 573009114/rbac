@@ -1,0 +1,72 @@
+{% load i18n %}{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改模块</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static "css/font.css" %}">
+    <link rel="stylesheet" href="{% static "css/xadmin.css" %}">
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "lib/layui/layui.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/xadmin.js" %}"></script>
+</head>
+
+<body>
+    <div class="x-body">
+        <form class="layui-form layui-form-pane" method="POST" action="" id="entry">
+		 {% csrf_token %}
+          <div class="layui-form-item">
+              <label for="rolename" class="layui-form-label">
+                  <span class="x-red">*</span>角色名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="rolename"  value="{{roles.role_list.0.role_name}}"  class="layui-input">
+              </div> 
+          </div>
+		    <div class="layui-form-item layui-form-text">
+				<label for="rolename" class="layui-form-label">
+                  <span class="x-red">*</span>授权规则
+              </label>
+				<table  class="layui-table layui-input-block">
+					<tbody>
+						<tr>
+							<td>
+							   
+								<input  lay-skin="primary" disabled="disabled" type="checkbox" title="权限规则">
+							</td>
+							<td>
+								<div class="layui-input-block">
+								 {%for m in models.model_list%} 
+								  <input name="mid[]"   type="checkbox" title="{{m.model_name}}" value="{{m.id}}"> 
+								 {% endfor %}  
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		    </div>
+          <div class="layui-form-item layui-form-text">
+                    <label for="desc" class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea">{{roles.role_list.0.role_describe}}</textarea>
+                    </div>
+          </div>
+		  
+          <div class="layui-form-item">
+		        <label for="L_repass" class="layui-form-label"></label>
+                <button class="layui-btn" type="submit" onclick="formSubmit()" >保存</button>
+          </div>
+      </form>
+    </div>
+  </body>
+<script type="text/javascript">
+	function formSubmit() {
+		document.getElementById("entry").submit()
+	}
+</script>
+</html>

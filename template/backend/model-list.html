@@ -1,0 +1,62 @@
+{% extends 'backend/base.htm' %}
+{% block title%}菜单列表{%endblock%}
+
+
+{% block body %}
+
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a>
+          <cite>菜单列表</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <xblock>
+	    <button class="layui-btn" onclick="x_admin_show('新建菜单','/members/model/add')"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">共有数据：{{modelinfo.total.id__count}} 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+             
+            <th>ID</th>
+            <th>模块名</th>
+			<th>模块代码</th>
+			<th>模块url</th>
+            <th>操作</th>
+        </thead>
+		
+		{%for model in modelinfo.model_list%}
+        <tbody>
+          <tr>
+            
+            <td>{{model.id}}</td>
+            <td>{{model.model_name}}</td>
+			<td>{{model.model_code}}</td>
+			<td>{{model.model_url}}</td>
+			<td class="td-manage"> 
+				<a title="修改" onclick="x_admin_show('编辑模块','/members/model/edit?id={{model.id}}')" href="javascript:;">
+					<i class="layui-icon">&#xe642;</i>
+				</a>
+				<a href="/members/model/delete?id={{model.id}}"><i class="layui-icon">&#xe640;</i></a>
+            </td>
+          </tr>
+        </tbody>
+		{%endfor%}
+      </table>
+      <div class="page">
+        <div>
+          <a class="prev" href="">&lt;&lt;</a>
+          <a class="num" href="">1</a>
+          <span class="current">2</span>
+          <a class="num" href="">3</a>
+          <a class="num" href="">489</a>
+          <a class="next" href="">&gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+{%endblock%}

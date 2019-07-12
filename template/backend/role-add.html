@@ -1,0 +1,72 @@
+{% load i18n %}{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static "css/font.css" %}">
+    <link rel="stylesheet" href="{% static "css/xadmin.css" %}">
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "lib/layui/layui.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/xadmin.js" %}"></script>
+</head>
+
+  <body>
+    <div class="x-body">
+        <form action="" method="post" class="layui-form layui-form-pane" id="pro_form">
+		{% csrf_token %}
+                <div class="layui-form-item">
+                    <label for="rolename" class="layui-form-label">
+                        <span class="x-red">*</span>角色名
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="rolename" name="rolename" required lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                        拥有权限
+                    </label>
+                    <table  class="layui-table layui-input-block">
+                        <tbody>
+                            <tr>
+                                <td>
+                                   
+                                    <input  lay-skin="primary" disabled="disabled" type="checkbox" title="权限规则">
+                                </td>
+                                <td>
+                                    <div class="layui-input-block">
+									 {%for model in modelinfo.model_list%} 
+									  <input name="modelid[]"   type="checkbox" title="{{model.model_name}}" value="{{model.id}}"> 
+                                       
+                                     {% endfor %}  
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label for="desc" class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                <button class="layui-btn" type="submit" onclick="addSubmit()">增加</button>
+              </div>
+            </form>
+    </div>
+  </body>
+<script type="text/javascript">
+	function addSubmit() {
+		document.getElementById("pro_form").submit()
+	}
+</script>
+</html>

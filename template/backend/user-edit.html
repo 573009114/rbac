@@ -1,0 +1,77 @@
+{% load i18n %}{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static "css/font.css" %}">
+    <link rel="stylesheet" href="{% static "css/xadmin.css" %}">
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "lib/layui/layui.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/xadmin.js" %}"></script>
+</head>
+
+<body>
+    <div class="x-body">
+        <form class="layui-form" method="POST" action="" id="entry">
+		 {% csrf_token %}
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>用户名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="username"  value="{{userinfo.ul.0.username}}"  readonly="true" class="layui-input">
+              </div> 
+          </div>
+          <div class="layui-form-item">
+              <label for="mobile" class="layui-form-label">
+                  <span class="x-red">*</span>手机号
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="mobile" name="mobile"  value="{{userinfo.ul.0.mobile}}" required lay-verify="mobile"
+                  autocomplete="off" class="layui-input">
+              </div> 
+          </div>
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>邮箱
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" value="{{userinfo.ul.0.email}}" name="email" required lay-verify="email"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label"><span class="x-red">*</span>角色</label>
+              <div class="layui-input-block">
+				  <div class="layui-col-md2">
+					  <select name="rid"> 
+						<option value="{{userinfo.ul.0.roles__id}}">{{userinfo.ul.0.roles__role_name}}</option>
+						{%for r in roles.role_list %}
+						<option value="{{r.id}}">{{r.role_name}}</option>
+						 {%endfor%}
+					  </select>
+				  </div>
+			 </div>
+          
+          </div> 
+		  
+          <div class="layui-form-item">
+		        <label for="L_repass" class="layui-form-label"></label>
+                <button class="layui-btn" type="submit" onclick="formSubmit()" >保存</button>
+          </div>
+      </form>
+    </div>
+  </body>
+<script type="text/javascript">
+	function formSubmit() {
+		document.getElementById("entry").submit()
+	}
+</script>
+</html>

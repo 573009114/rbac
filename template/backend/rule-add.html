@@ -1,0 +1,65 @@
+{% load i18n %}{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static "css/font.css" %}">
+    <link rel="stylesheet" href="{% static "css/xadmin.css" %}">
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "lib/layui/layui.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/xadmin.js" %}"></script>
+</head>
+
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+          <div class="layui-form-item">
+              <label for="rulename" class="layui-form-label">
+                  <span class="x-red">*</span>规则名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="rulename" name="rulename" required lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="url" class="layui-form-label">
+                  <span class="x-red">*</span>授权url
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="url" name="url" required lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          
+         
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>所属权限组
+              </label>
+              <div class="layui-input-inline">
+                  <select name="group" class="valid">
+				  {%for group in info.group %}
+                    <option value="group1">{{group}}</option>
+                  {%endfor%}
+                  </select>
+              </div>
+          </div>
+          
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+ 
+  </body>
+
+</html>

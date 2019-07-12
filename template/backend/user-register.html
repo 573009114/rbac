@@ -1,0 +1,116 @@
+{% load i18n %}{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static "css/font.css" %}">
+    <link rel="stylesheet" href="{% static "css/xadmin.css" %}">
+
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <script src="{% static "lib/layui/layui.js" %}" charset="utf-8"></script>
+    <script type="text/javascript" src="{% static "js/xadmin.js" %}"></script>
+</head>
+
+  <body>
+    <div class="x-body">
+        <form action="" method="post" class="layui-form layui-form-pane" id="entry">
+		{% csrf_token %}
+                <div class="layui-form-item">{{msg}}
+                    <label for="username" class="layui-form-label">
+                        <span class="x-red">*</span>用户名
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="username" name="username" required lay-verify="required"
+                        autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+				<div class="layui-form-item">
+					  <label for="L_email" class="layui-form-label">
+						  <span class="x-red">*</span>邮箱
+					  </label>
+					  <div class="layui-input-inline">
+						  <input type="text" id="email" name="email" required lay-verify="email"
+						  autocomplete="off" class="layui-input">
+					  </div>
+			    </div>
+				<div class="layui-form-item">
+					  <label for="password1" class="layui-form-label">
+						  <span class="x-red">*</span>密码
+					  </label>
+					  <div class="layui-input-inline">
+						  <input type="password" id="password1" name="password1" required lay-verify="password1"
+						  autocomplete="off" class="layui-input">
+					  </div>
+					  <div class="layui-form-mid layui-word-aux">
+						  6到16个字符
+					  </div>
+				  </div>
+				<div class="layui-form-item">
+					  <label for="password2" class="layui-form-label">
+						  <span class="x-red">*</span>确认密码
+					  </label>
+					  <div class="layui-input-inline">
+						  <input type="password" id="password2" name="password2" required lay-verify="password2"
+						  autocomplete="off" class="layui-input">
+					  </div>
+				  </div>
+				<div class="layui-form-item">
+					  <label for="is_active" class="layui-form-label">
+						  <span class="x-red">*</span>是否激活
+					  </label>
+					  <div class="layui-input-inline">
+						  <input type="checkbox" name="is_active" lay-skin="primary" value='0' title="勾选激活">
+					  </div>
+				  </div>
+				  
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">
+                        分配角色
+                    </label>
+					
+					
+					
+					
+					
+					
+                    <table  class="layui-table layui-input-block">
+						 <tbody>
+                            <tr>
+                                <td> 
+                                    <input disabled="disabled" type="checkbox" title="角色名">
+                                </td>
+                                <td>
+                                    <div class="layui-input-block">
+                                        
+										<div class="layui-col-md6">
+										  <select name="rid"> 
+										    <option value="">角色选择框</option>
+											{%for r in role.role_list%} 
+											<option value="{{r.id}}">{{r.role_name}}</option>
+											{%endfor%}
+										  </select>
+										</div>
+                                       
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+						
+                    </table>
+                </div>
+                
+                <div class="layui-form-item">
+                <button class="layui-btn" type="submit" onclick="formSubmit()" >增加</button>
+              </div>
+            </form>
+    </div>
+  </body>
+<script type="text/javascript">
+	function formSubmit() {
+		document.getElementById("entry").submit()
+	}
+</script>
+</html>
